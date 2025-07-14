@@ -1,8 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaYoutube } from "react-icons/fa";
 
+// 🔽 Work 타입 정의 추가
+interface Work {
+  title: string;
+  award?: string;
+  period?: string;
+  description?: string;
+  client?: string;
+  role?: string;
+  images?: string[];
+  videoUrl?: string;
+}
+
 export default function Works() {
-  const works = [
+  const works: Work[] = [
     {
       title: "전주정원산업박람회",
       award: "대상",
@@ -64,7 +76,8 @@ export default function Works() {
   );
 }
 
-function WorkCard({ work }) {
+// 🔽 WorkCard의 props 타입 명시
+function WorkCard({ work }: { work: Work }) {
   const validImages = (work.images || []).filter(
     (src) => typeof src === "string" && src.trim() !== ""
   );
