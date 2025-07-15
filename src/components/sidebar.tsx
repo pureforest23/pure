@@ -1,20 +1,27 @@
 import { scrollToSection } from "../utils/scroll";
+import React from "react";
 
-export default function Sidebar({
-  introUnlocked,
-  isMobile,
-  isSidebarOpen,
-  setSidebarOpen,
-}: {
+interface SidebarProps {
   introUnlocked: boolean;
   isMobile?: boolean;
   isSidebarOpen?: boolean;
   setSidebarOpen?: (value: boolean) => void;
-}) {
+}
+
+const Sidebar: React.FC<SidebarProps> = ({
+  introUnlocked,
+  isMobile = false,
+  isSidebarOpen = false,
+  setSidebarOpen,
+}) => {
+  const logoImage = "/images/logo.png";
+
   const handleClick = (id: string) => {
     if (!introUnlocked) return;
     scrollToSection(id);
-    if (isMobile && setSidebarOpen) setSidebarOpen(false); // 모바일에선 클릭 후 자동 닫기
+    if (isMobile && setSidebarOpen) {
+      setSidebarOpen(false);
+    }
   };
 
   const menuItems = [
@@ -43,23 +50,21 @@ export default function Sidebar({
             ))}
           </div>
           <img
-            src="/public/image/logo.png"
+            src={logoImage}
             alt="로고"
             className="w-20 h-20 object-contain mt-6"
           />
         </div>
       </aside>
 
-      {/* ✅ 모바일용 사이드바 (슬라이드 인) */}
+      {/* ✅ 모바일용 사이드바 */}
       {isMobile && isSidebarOpen && (
         <>
-          {/* 배경 오버레이 */}
           <div
             className="fixed inset-0 bg-black/50 z-40"
             onClick={() => setSidebarOpen?.(false)}
           />
-          {/* 사이드바 본체 */}
-          <aside className="fixed top-0 left-0 h-full w-48 bg-white z-50 shadow-lg p-4">
+          <aside className="fixed top-0 left-0 h-full w-36 bg-white z-50 shadow-lg p-4">
             <button
               className="mb-6 text-xl"
               onClick={() => setSidebarOpen?.(false)}
@@ -79,7 +84,7 @@ export default function Sidebar({
               ))}
             </div>
             <img
-              src="/public/image/logo.png"
+              src={logoImage}
               alt="로고"
               className="w-20 h-20 object-contain mt-6"
             />
@@ -88,4 +93,6 @@ export default function Sidebar({
       )}
     </>
   );
-}
+};
+
+export default Sidebar;
