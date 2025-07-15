@@ -95,7 +95,6 @@ export default function Portfolio() {
     if (!container) return;
 
     const handleScroll = () => {
-      const center = container.scrollLeft + container.offsetWidth / 2;
       const children = Array.from(container.children);
       let closestIdx = 0;
       let minDistance = Infinity;
@@ -148,11 +147,6 @@ export default function Portfolio() {
         포트폴리오
       </h2>
 
-      <div className="relative w-full mb-10">
-        <div className="absolute inset-x-0 top-8 text-center text-forest font-body text-lg">
-          {projects[0].title}
-        </div>
-      </div>
 
       <div
         id="portfolio-scroll-area"
